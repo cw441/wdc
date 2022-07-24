@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import '../../model/productmodel.dart' as product;
 
-import 'model/productmodel.dart';
+import '../model/productmodel.dart';
 
-class casom extends StatelessWidget {
+class ProductItem extends StatelessWidget {
 
-  casom({
-    required this.product,
+  ProductItem({
+    required this.item,
+
     Key? key}) : super(key: key);
-  PurpleAttributes product;
+  final product.Product item;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -36,33 +39,26 @@ class casom extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children:[
-                      Text(product.name,
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey
-                        ),
+                      Text(
+                        item.attributes.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                       SizedBox(height: 5,),
-                      Text(
-                      r'$' '${product.num.toString()}',
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.black
-                        ),
-                      )
+                      Text('${item.attributes.num}')
                     ],
                   ),
                 ),
               )
           ),
-         // Positioned(
-          ////    right: 30 ,
-         //     bottom: 20,
-          /////    child: Image.network(product.image,
-             //     height: 200,
-            //      width: 120
-           //   )
-        //  )
+     Positioned(
+              right: 30 ,
+              bottom: 20,
+            child:Image.network(item.attributes.image.data.attributes.url,
+               height: 200,
+                 width: 120
+             )
+         )
         ]
     );
   }

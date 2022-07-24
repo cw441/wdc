@@ -4,25 +4,26 @@ import 'package:http/http.dart' as http;
 
 import '../model/productmodel.dart';
 
+class EcommerceService {
+  static const headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
 
+  // get all products
+  static Future<List<Product>?> getProducts() async {
+    final response = await http.get(
+      Uri.parse(
+        'https://mahmoudaliapp.herokuapp.com/api/masls?populate=*',
+      ),
+      headers: headers,
+    );
 
-class Getallproduct {
-
-  Future<List<PurpleAttributes>> getAll() async
-  {
-    http.Response response = await http.get(
-        Uri.parse('https://mahmoudaliapp.herokuapp.com/api/masls?populate=*'));
+    // check http response code must 200
     if (response.statusCode == 200) {
-      List <dynamic> data = jsonDecode(response.body);
-
-      List<PurpleAttributes> productList = [];
-      for (int i = 0; i < data.length; i++) {
-        productList.add(PurpleAttributes.fromJson(data[i])
-        );
-      }
-      return productList;
-    }else{
-      throw Exception('problem ${response.statusCode}');
+      // parse data
+      final json = jsonDecode(response.body);
+      final jsonString = jsonEncode(json['data']);
+      return productFromJson(jsonString);
+    } else {
+      return null;
+    }
   }
-}
 }
