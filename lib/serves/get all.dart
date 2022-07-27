@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../model/productmodel.dart';
 
 class EcommerceService {
+  static String endpo = "https://res.cloudinary.com/dseqpzbjp/image";
   static const headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
 
   // get all products

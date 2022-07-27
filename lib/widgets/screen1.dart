@@ -1,7 +1,8 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../model/productmodel.dart' as product;
+import '../serves/get all.dart';
 
-import '../model/productmodel.dart';
 
 class ProductItem extends StatelessWidget {
 
@@ -51,15 +52,15 @@ class ProductItem extends StatelessWidget {
                 ),
               )
           ),
-     Positioned(
-              right: 30 ,
+    Positioned(
+            right: 30 ,
               bottom: 20,
-            child:Image.network(item.attributes.image.data.attributes.url,
+           child:Image.network(EcommerceService.endpo + item.attributes.image.data.first.attributes.url,
                height: 200,
                  width: 120
              )
-         )
-        ]
+               )
+               ]
     );
   }
 }
