@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:untitled/screen/homePage.dart';
 import '../widgets/screen1.dart';
+import 'MainAll.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/home',
       routes: {
-        '/home': (context) => HomePage(),
+        '/home': (context) => aa(),
         // place another page here
       },
     );

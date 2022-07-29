@@ -1,30 +1,30 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../model/productmodel.dart' as product;
+import '../../model/model1.dart' as product1;
 import '../serves/get all.dart';
 
 
-class ProductItem extends StatelessWidget {
+class ProductItem1 extends StatelessWidget {
 
-  ProductItem({
-    required this.item,
+  ProductItem1({
+    required this.item1,
 
     Key? key}) : super(key: key);
-  final product.Product item;
+  final product1.Product1 item1;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-        clipBehavior: Clip.none,
-        children:[
-          Container(
-              width: 200,
+    return   Container(
+              width: double.infinity,
               height: 150,
               decoration: BoxDecoration(
+                color: Colors.black54.withOpacity(0.6),
+                borderRadius: BorderRadius.circular(10),
+
                 boxShadow:[
                   BoxShadow(
                       blurRadius: 40,
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withOpacity(0.2),
                       spreadRadius: 0,
                       offset: Offset(6,6)
 
@@ -32,35 +32,47 @@ class ProductItem extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Card(
-                elevation: 7,
-                child:Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+              child: Row(
                     children:[
-                      Text(
-                        item.attributes.name,
+              Padding(
+              padding: const EdgeInsets.all(2),
+      child: Align(
+                  alignment: Alignment.centerLeft,
+                  child:Container(
+                      child:ClipRRect(
+                          borderRadius:BorderRadius.circular(10),
+                          child: Image.network( item1.attributes.image1.data.first.attributes.url,
+                        height: 150,
+                        width: 150,
+                    fit: BoxFit.fill,
+                          )
+                        )
+                      )
+                   )
+              ),
+                    Column(
+                        children: [
+                          SizedBox(height: 90,),
+                        Text(
+                        item1.attributes.name1,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white
+                          ),
                       ),
-                      SizedBox(height: 5,),
-                      Text('${item.attributes.num}')
+                         SizedBox(height: 5,),
+                         Text(r'$''${item1.attributes.num1}',
+                         style: TextStyle(
+                           fontSize: 17,
+                           color: Colors.amberAccent
+                         ),
+                         )
+],
+)
                     ],
                   ),
-                ),
-              )
-          ),
-    Positioned(
-            right: 30 ,
-              bottom: 20,
-           child:Image.network(EcommerceService.endpo + item.attributes.image.data.first.attributes.url,
-               height: 200,
-                 width: 120
-             )
-               )
-               ]
     );
   }
 }

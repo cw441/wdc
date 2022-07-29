@@ -2,16 +2,17 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../model/model1.dart';
 import '../model/productmodel.dart';
 
-class EcommerceService {
+class EcommerceService1 {
   static const headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
 
   // get all products
-  static Future<List<Product>?> getProducts() async {
+  static Future<List<Product1>?> getProducts1() async {
     final response = await http.get(
       Uri.parse(
-        'https://mahmoudaliapp.herokuapp.com/api/masls?populate=*',
+        'https://mahmoudaliapp.herokuapp.com/api/sdzs?populate=*',
       ),
       headers: headers,
     );
@@ -21,7 +22,7 @@ class EcommerceService {
       // parse data
       final json = jsonDecode(response.body);
       final jsonString = jsonEncode(json['data']);
-      return productFromJson(jsonString);
+      return product1FromJson(jsonString);
     } else {
       return null;
     }

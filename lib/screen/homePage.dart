@@ -1,8 +1,10 @@
 import 'dart:developer';
 import '../model/productmodel.dart' as product;
 import 'package:flutter/material.dart';
-import '../widgets/screen1.dart';
+import '../serves/get all1.dart';
+import '../widgets/screen.dart';
 import '../serves/get all.dart';
+import '../widgets/screen1.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -17,9 +19,17 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('mahmood'),
-      ),
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.black.withOpacity(0.8),
+          title: Text('PASTRIES AND CAKE',
+            style: TextStyle(
+                fontSize: 20,
+                color: Colors.white
+            ),
+          ),
+          elevation: 0,
+        ),
       // show product as grid view
       body:Padding(
       padding: const EdgeInsets.only(left:10,right:10,top:10 ),
@@ -35,17 +45,18 @@ class _HomePageState extends State<HomePage> {
           // hase data
           if (snapshot.hasData) {
             // show data as gridview here
-            final products = snapshot.data;
-            return GridView.count(
-              crossAxisSpacing: 10,
-              childAspectRatio: 1.1,
 
-              mainAxisSpacing: 2,
-              crossAxisCount: 2,
-              children: products!.map((item) {
-                return ProductItem(item: item);
-              }).toList(),
-            );
+final products = snapshot.data;
+
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+               child: Row(
+                  //screen
+                     children: products!.map((item) {
+                      return ProductItem(item: item);
+                        }).toList(),
+
+                )    );
           }
 
           // loading
