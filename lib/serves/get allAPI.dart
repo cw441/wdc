@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 
-import '../model/productmodel.dart';
+import '../model/model.dart';
+
 
 class EcommerceService {
   static const headers = {'Content-Type': 'application/json', 'Accept': 'application/json'};
@@ -19,6 +21,9 @@ class EcommerceService {
     // check http response code must 200
     if (response.statusCode == 200) {
       // parse data
+      log('${response.statusCode}');
+      log('${response.body}');
+
       final json = jsonDecode(response.body);
       final jsonString = jsonEncode(json['data']);
       return productFromJson(jsonString);

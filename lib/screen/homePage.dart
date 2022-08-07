@@ -1,10 +1,8 @@
 import 'dart:developer';
-import '../model/productmodel.dart' as product;
+import '../model/model.dart' as product;
 import 'package:flutter/material.dart';
-import '../serves/get all1.dart';
 import '../widgets/screen.dart';
-import '../serves/get all.dart';
-import '../widgets/screen1.dart';
+import '../serves/get allAPI.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -19,9 +17,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+      backgroundColor: Colors.white.withOpacity(0.4),
         appBar: AppBar(
-          backgroundColor: Colors.black.withOpacity(0.8),
+          backgroundColor: Colors.white.withOpacity(0.4),
           title: Text('PASTRIES AND CAKE',
             style: TextStyle(
                 fontSize: 20,
@@ -31,12 +29,11 @@ class _HomePageState extends State<HomePage> {
           elevation: 0,
         ),
       // show product as grid view
-      body:Padding(
-      padding: const EdgeInsets.only(left:10,right:10,top:10 ),
-    child:
+      body:
       FutureBuilder(
         future: EcommerceService.getProducts(),
-        builder: (BuildContext context, AsyncSnapshot<List<product.Product>?> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<List<product.Product>?> snapshot) {
           // has error
           if (snapshot.hasError) {
             return Center(child: Text("Error"));
@@ -64,7 +61,7 @@ final products = snapshot.data;
             child: CircularProgressIndicator(),
           );
         },
-      ),)
+      ),
     );
   }
 }

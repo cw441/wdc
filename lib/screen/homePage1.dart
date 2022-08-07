@@ -1,7 +1,7 @@
 import 'dart:developer';
 import '../model/model1.dart' as product1;
 import 'package:flutter/material.dart';
-import '../serves/get all1.dart';
+import '../serves/get all1API.dart';
 import '../widgets/screen1.dart';
 
 
@@ -17,10 +17,10 @@ class _HomePageOneState extends State<HomePageOne> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black.withOpacity(0.8),
-appBar: AppBar(
-  backgroundColor: Colors.black.withOpacity(0.8),
-  title: Text('ICE CREAM AND JUICES',
+      backgroundColor: Colors.white.withOpacity(0.4),
+      appBar: AppBar(
+  backgroundColor: Colors.white.withOpacity(0.4),
+       title: Text('ICE CREAM AND JUICES',
       style: TextStyle(
       fontSize: 20,
       color: Colors.white
@@ -29,12 +29,9 @@ appBar: AppBar(
   elevation: 0,
 ),
         // show product as grid view
-        body:Center(child:  Padding(
-          padding: const EdgeInsets.only(left:10,right:10,top:10 ),
-          child:
-          FutureBuilder(
+        body: FutureBuilder(
             future: EcommerceService1.getProducts1(),
-            builder: (BuildContext context, AsyncSnapshot<List<product1.Product1>?> snapshot) {
+            builder: (BuildContext context, AsyncSnapshot<List<product1.Product11>?> snapshot) {
               // has error
               if (snapshot.hasError) {
                 return Center(child: Text("Error"));
@@ -46,14 +43,15 @@ appBar: AppBar(
 
                 final products1 = snapshot.data;
 
-                return
-                    //screen1
-                    Column(
+                return   Padding(
+                    padding: const EdgeInsets.all(8),
+                    child:SingleChildScrollView(
+           child: Column(
                       children: products1!.map((item1) {
                         return ProductItem1(item1: item1);
                       }).toList(),
-
-                );
+                  ))
+                        );
               }
 
               // loading
@@ -62,8 +60,6 @@ appBar: AppBar(
               );
             },
           ),
-        ),
-        )
     );
   }
 }

@@ -1,3 +1,5 @@
+
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
 List<Product> productFromJson(String str) => List<Product>.from(json.decode(str).map((x) => Product.fromJson(x)));
@@ -29,18 +31,27 @@ class ProductAttributes {
     required this.name,
     required this.title,
     required this.num,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.publishedAt,
     required this.image,
   });
 
   String name;
-  String title;
+  dynamic title;
   int num;
+  DateTime createdAt;
+  DateTime updatedAt;
+  DateTime publishedAt;
   Image image;
 
   factory ProductAttributes.fromJson(Map<String, dynamic> json) => ProductAttributes(
     name: json["name"],
     title: json["title"],
     num: json["num"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
+    publishedAt: DateTime.parse(json["publishedAt"]),
     image: Image.fromJson(json["image"]),
   );
 
@@ -48,6 +59,9 @@ class ProductAttributes {
     "name": name,
     "title": title,
     "num": num,
+    "createdAt": createdAt.toIso8601String(),
+    "updatedAt": updatedAt.toIso8601String(),
+    "publishedAt": publishedAt.toIso8601String(),
     "image": image.toJson(),
   };
 }
@@ -91,67 +105,68 @@ class Datum {
 class DatumAttributes {
   DatumAttributes({
     required this.name,
-    required this.formats,
+    required this.alternativeText,
+    required this.caption,
+    required this.width,
+    required this.height,
+    required this.hash,
+    required this.ext,
+    required this.mime,
+    required this.size,
     required this.url,
+    required this.previewUrl,
+    required this.provider,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
   String name;
-  Formats formats;
+  String alternativeText;
+  String caption;
+  int width;
+  int height;
+  String hash;
+  String ext;
+  String mime;
+  double size;
   String url;
+  dynamic previewUrl;
+  String provider;
+  DateTime createdAt;
+  DateTime updatedAt;
 
   factory DatumAttributes.fromJson(Map<String, dynamic> json) => DatumAttributes(
     name: json["name"],
-    formats: Formats.fromJson(json["formats"]),
+    alternativeText: json["alternativeText"],
+    caption: json["caption"],
+    width: json["width"],
+    height: json["height"],
+    hash: json["hash"],
+    ext: json["ext"],
+    mime: json["mime"],
+    size: json["size"].toDouble(),
     url: json["url"],
+    previewUrl: json["previewUrl"],
+    provider: json["provider"],
+    createdAt: DateTime.parse(json["createdAt"]),
+    updatedAt: DateTime.parse(json["updatedAt"]),
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
-    "formats": formats.toJson(),
+    "alternativeText": alternativeText,
+    "caption": caption,
+    "width": width,
+    "height": height,
+    "hash": hash,
+    "ext": ext,
+    "mime": mime,
+    "size": size,
     "url": url,
+    "previewUrl": previewUrl,
+    "provider": provider,
+    "createdAt": createdAt.toIso8601String(),
+    "updatedAt": updatedAt.toIso8601String(),
   };
 }
 
-class Formats {
-  Formats({
-    required this.large,
-    required this.small,
-    required this.medium,
-    required this.thumbnail,
-  });
-
-  Large large;
-  Large small;
-  Large medium;
-  Large thumbnail;
-
-  factory Formats.fromJson(Map<String, dynamic> json) => Formats(
-    large: Large.fromJson(json["large"]),
-    small: Large.fromJson(json["small"]),
-    medium: Large.fromJson(json["medium"]),
-    thumbnail: Large.fromJson(json["thumbnail"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "large": large.toJson(),
-    "small": small.toJson(),
-    "medium": medium.toJson(),
-    "thumbnail": thumbnail.toJson(),
-  };
-}
-
-class Large {
-  Large({
-    required this.url,
-  });
-
-  String url;
-
-  factory Large.fromJson(Map<String, dynamic> json) => Large(
-    url: json["url"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "url": url,
-  };
-}

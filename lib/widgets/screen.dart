@@ -1,7 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import '../../model/productmodel.dart' as product;
-import '../serves/get all.dart';
+import 'package:url_launcher/link.dart';
+import '../../model/model.dart' as product;
+import '../serves/get allAPI.dart';
 
 
 class ProductItem extends StatelessWidget {
@@ -18,20 +19,11 @@ class ProductItem extends StatelessWidget {
         child: Padding(
         padding: const EdgeInsets.all(8),
           child:Container(
-              width: 200,
-              height: 260,
+              height: MediaQuery.of(context).size.width*0.64,
+              width: MediaQuery.of(context).size.width*0.41,
               decoration: BoxDecoration(
                       color: Colors.black54.withOpacity(0.6),
                       borderRadius: BorderRadius.circular(10),
-                boxShadow:[
-                  BoxShadow(
-                      blurRadius: 40,
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 0,
-                      offset: Offset(6,6)
-                  ),
-                ],
-
 
               ),
 
@@ -44,8 +36,8 @@ class ProductItem extends StatelessWidget {
                          child:ClipRRect(
                            borderRadius:BorderRadius.circular(10),
                         child: Image.network( item.attributes.image.data.first.attributes.url,
-                             height: 200,
-                             width: 200,
+                             height: MediaQuery.of(context).size.width*0.42,
+                             width: MediaQuery.of(context).size.width*0.4,
                            fit: BoxFit.fill,
                          ),
                 )
@@ -62,15 +54,35 @@ class ProductItem extends StatelessWidget {
                        ),
                       ),
                       SizedBox(height: 5,),
-                      Text(r'$''${item.attributes.num}',
+               Row(
+                        children: [
+
+                        SizedBox(width: MediaQuery.of(context).size.width*0.1,),
+                          Center(
+                            child:   Text(r'$''${item.attributes.num}',
                         style: TextStyle(
                             fontSize: 17,
                             color: Colors.amberAccent
-                        ),)
-        ],
-                 )
-    )
-    )
+                         )
+                        ),
+                      ),
+                          Center(
+                            child: Link(
+                                 uri:Uri.parse('https://wa.me/9647802403955?text=${item.attributes.name}') ,
+                               builder: (context, followLink) =>
+                                 IconButton(
+                              onPressed: followLink,
+                                  icon:Icon(Icons.add,
+                                     color: Colors.white,)
+                    )
+                   ),
+                          )
+                  ],
+                ),
+             ],
+           )
+          )
+         )
     );
   }
 }
